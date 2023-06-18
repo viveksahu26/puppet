@@ -56,6 +56,17 @@ class vivek  {
     ensure => link,
     target => '/etc/owned_by_ubuntu',
   }
+
+# Manage packages
+  package { 'ruby':
+    ensure => installed,
+  }
+
+# Install puppet-lint packages
+  package { 'puppet-lint':
+    ensure   => installed,
+    provider => gem,
+  }
 # Install 
 #  package { 'mysql-server':
 #    ensure => installed,
