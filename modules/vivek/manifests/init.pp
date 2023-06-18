@@ -27,14 +27,35 @@ class vivek  {
   }
 
 # manage files with permission
-  file { '/tmp/':
-#    ensure => present,
+  file { '/tmp/hello':
+    ensure => present,
 #    owner  => 'ubuntu',
 #    mode   => '0755',
 #    group  => 'ubuntu',
-    source => '/tmp/vivek.txt',
+    source => 'puppet:///modules/vivek/vivek.txt',
   }
 
+# file with more attributes
+  file { '/etc/owned_by_ubuntu':
+    ensure => present,
+    owner  => 'ubuntu',
+    group  => 'ubuntu',
+    mode   => '0666',
+  }
+
+# file --> directories
+  file {'/etc/config_dir':
+    ensure => directory,
+    owner  => 'ubuntu',
+    group  => 'ubuntu',
+    mode   => '0666',
+  }
+
+# file --> symlink
+  file {'/etc/this_is_a_link':
+    ensure => link,
+    target => '/etc/owned_by_ubuntu',
+  }
 # Install 
 #  package { 'mysql-server':
 #    ensure => installed,
