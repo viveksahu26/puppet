@@ -10,8 +10,9 @@ class vivek  {
     require => Package['apache2'],
   }
 
-# create a file 
-  file { '/tmp/hello.txt':
+# create a file
+ $filepath = '/tmp/hello.txt' 
+  file { $filepath:
     ensure  => file,
     content => "Hi goodbye, world and all\n",
   }
@@ -26,21 +27,13 @@ class vivek  {
     ensure => installed,
   }
 
-# manage files with permission
-  file { '/tmp/hello':
-    ensure => present,
-#    owner  => 'ubuntu',
-#    mode   => '0755',
-#    group  => 'ubuntu',
-    source => 'puppet:///modules/vivek/vivek.txt',
-  }
-
 # file with more attributes
   file { '/etc/owned_by_ubuntu':
     ensure => present,
     owner  => 'ubuntu',
     group  => 'ubuntu',
     mode   => '0666',
+#    source => 'puppet:///modules/vivek/vivek.txt',
   }
 
 # file --> directories
@@ -66,6 +59,14 @@ class vivek  {
   package { 'puppet-lint':
     ensure   => installed,
     provider => gem,
+  }
+
+  $tasks = ['task1', 'task2', 'task3']
+  $tasks.each | $task | {
+    file { "/tmp/${task}":
+      content => "echo I am ${task}\n",
+      mode    => '0766',
+    }
   }
 # Install 
 #  package { 'mysql-server':
