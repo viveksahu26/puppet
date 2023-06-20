@@ -61,12 +61,18 @@ class vivek  {
     provider => gem,
   }
 
-  $tasks = ['task1', 'task2', 'task3']
-  $tasks.each | $task | {
-    file { "/tmp/${task}":
-      content => "echo I am ${task}\n",
-      mode    => '0766',
+   $tasks = ['task1', 'task2', 'task3']
+   $tasks.each | $task | {
+   file { "/tmp/${task}":
+        content => "echo I am ${task}\n",
+        mode    => '0766',
+      }
     }
+
+  lookup('users2', Hash, 'hash').each | String $username, Hash $attrs | {
+  user { $username:
+    * => $attrs,
+   }
   }
 # Install 
 #  package { 'mysql-server':
