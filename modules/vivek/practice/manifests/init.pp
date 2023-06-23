@@ -1,5 +1,5 @@
 # Default nginx server
-class vivek  {
+class practice  {
   package { 'apache2':
   ensure => installed,
   }
@@ -25,6 +25,14 @@ class vivek  {
 # Install package cowsay
   package { 'atop':
     ensure => installed,
+  }
+# file with more attributes
+  file { '/tmp/owned_by_ubuntu2':
+    ensure => present,
+    owner  => 'ubuntu',
+    group  => 'ubuntu',
+    mode   => '0666',
+#    source => 'puppet:///modules/vivek/vivek.txt',
   }
 
 # file with more attributes
@@ -61,7 +69,7 @@ class vivek  {
     provider => gem,
   }
 
-   $tasks = ['task1', 'task2', 'task3']
+   $tasks = ['task1', 'task2', 'task3', 'task4']
    $tasks.each | $task | {
    file { "/tmp/${task}":
         content => "echo I am ${task}\n",
@@ -74,6 +82,22 @@ class vivek  {
     * => $attrs,
    }
   }
+
+#  include upstream::apache
+
+#  apache::vhost { 'cat-pictures.com':
+#    port          => '80',
+#    docroot       => '/var/www/cat-pictures',
+#    docroot_owner => 'www-data',
+#    docroot_group => 'www-data',
+#  }
+
+#  file { '/var/www/cat-pictures/index.html':
+#    content => "<img src='http://bitfieldconsulting.com/files/happycat.jpg'>",
+#    owner   => 'www-data',
+#    group   => 'www-data',
+#  }
+
 # Install 
 #  package { 'mysql-server':
 #    ensure => installed,
