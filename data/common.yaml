@@ -1,21 +1,24 @@
+---
+test: 'This is a test !!'
+apache::default_vhost: false
 users2:
   'katy':
-    ensure: present
+    ensure: absent
     uid: 1900
     shell: '/bin/bash'
   'lark':
-    ensure: present
+    ensure: absent
     uid: 1901
     shell: '/bin/sh'
   'bridget':
-    ensure: present
+    ensure: absent
     uid: 1902
     shell: '/bin/bash'
   'hsing-hui':
-    ensure: present
+    ensure: absent
     uid: 1903
     shell: '/bin/sh'
   'charles':
-    ensure: present
+    ensure: absent
     uid: 1904
     shell: '/bin/bash'

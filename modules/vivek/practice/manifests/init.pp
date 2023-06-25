@@ -1,14 +1,14 @@
 # Default nginx server
 class practice  {
-  package { 'apache2':
-  ensure => installed,
-  }
+#  include ::practice::ntp
+  include ::practice::cron
+  include ::practice::exec
+  include ::practice::docker
+  include ::practice::iteration
+  include ::practice::apache
+  include ::practice::archive
+  notice($facts['kernel'])
 
-  service { 'apache2':
-    ensure  => running,
-    enable  => true,
-    require => Package['apache2'],
-  }
 
 # create a file
  $filepath = '/tmp/hello.txt' 
@@ -69,56 +69,11 @@ class practice  {
     provider => gem,
   }
 
-   $tasks = ['task1', 'task2', 'task3', 'task4']
-   $tasks.each | $task | {
-   file { "/tmp/${task}":
-        content => "echo I am ${task}\n",
-        mode    => '0766',
-      }
-    }
-
   lookup('users2', Hash, 'hash').each | String $username, Hash $attrs | {
   user { $username:
     * => $attrs,
    }
   }
 
-#  include upstream::apache
-
-#  apache::vhost { 'cat-pictures.com':
-#    port          => '80',
-#    docroot       => '/var/www/cat-pictures',
-#    docroot_owner => 'www-data',
-#    docroot_group => 'www-data',
-#  }
-
-#  file { '/var/www/cat-pictures/index.html':
-#    content => "<img src='http://bitfieldconsulting.com/files/happycat.jpg'>",
-#    owner   => 'www-data',
-#    group   => 'www-data',
-#  }
-
-# Install 
-#  package { 'mysql-server':
-#    ensure => installed,
-#    notify => Service['mysql'],
-#  }
-#
-#  file { '/etc/mysql/mysql.conf':
-#    source  => '/examples/files/mysql.conf',
-#    notify  => Service['mysql'],
-#    require => Package['mysql-server'],
-#  }
-#
-#  service { 'mysql':
-#    ensure  => running,
-#    enable  => true,
-#    require => [Package['mysql-server'], File['/etc/mysql/mysql.cnf']],
-#  }
-  
- # include docker
-#  docker::image { 'ubuntu':
- #   ensure       => 'latest',
- # }
 }
 
